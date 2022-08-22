@@ -1,6 +1,7 @@
 const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
+const cloudinary = require("../utils/cloudinary");
 
 //generate JWT:
 const genToken = (_id) => {
@@ -87,12 +88,27 @@ const profileUpdate = async (req, res) => {
       }
     }
 
+    let cloudinaryImgUrl;
+
+    if (req.body.profileImage) {
+      const uploadResponse = await cloudinary.uploader.upload(
+        req.body.profileImage,
+        {
+          folder: `Bloggy/profiles`,
+          public_id: `${req.params.userId}`,
+        }
+      );
+
+      cloudinaryImgUrl = uploadResponse.secure_url;
+    }
+
     const updatedUser = await UserModel.findByIdAndUpdate(
       {
         _id: id,
       },
       {
         ...req.body,
+        profileImage: cloudinaryImgUrl ? cloudinaryImgUrl : "",
       },
       {
         new: true,
