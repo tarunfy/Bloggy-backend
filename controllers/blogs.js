@@ -23,13 +23,12 @@ const getBlogs = async (req, res) => {
       });
     }
     if (req.query.filterBy == "Latest") {
-      const blogs = await BlogModel.find({})
-        .select({
-          markdown: 0,
-          updatedAt: 0,
-          __v: 0,
-        })
-        .sort({ createdAt: -1 });
+      const blogs = await BlogModel.find({}).sort({ createdAt: -1 }).select({
+        markdown: 0,
+        updatedAt: 0,
+        __v: 0,
+      });
+
       const data = blogs.map((blog) => {
         return {
           ...blog,
@@ -43,13 +42,12 @@ const getBlogs = async (req, res) => {
     }
 
     if (req.query.filterBy == "Top") {
-      const blogs = await BlogModel.find({})
-        .select({
-          markdown: 0,
-          updatedAt: 0,
-          __v: 0,
-        })
-        .sort({ likes: -1 });
+      const blogs = await BlogModel.find({}).sort({ likes: -1 }).select({
+        markdown: 0,
+        updatedAt: 0,
+        __v: 0,
+      });
+
       const data = blogs.map((blog) => {
         return {
           ...blog,
