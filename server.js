@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 app.use(
   cors({
     credentials: true,
-    origin: "https://bloggy-frontend.vercel.app",
+    origin: "*",
   })
 );
 app.use(cookieParser());
