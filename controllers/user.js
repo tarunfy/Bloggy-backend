@@ -143,6 +143,8 @@ const currentUser = async (req, res) => {
 
   const user = await UserModel.findById(decodedToken._id);
 
+  user.password = undefined;
+
   res.status(200).json({ user });
 };
 
