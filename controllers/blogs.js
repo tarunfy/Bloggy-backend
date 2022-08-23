@@ -31,9 +31,9 @@ const getBlogs = async (req, res) => {
 
       const data = blogs.map((blog) => {
         return {
-          ...blog,
-          comments: blogs.comments.length,
-          likes: blogs.likes.length,
+          ...blog._doc,
+          comments: blog._doc.comments.length,
+          likes: blog._doc.likes.length,
         };
       });
       res.status(200).json({
@@ -50,9 +50,9 @@ const getBlogs = async (req, res) => {
 
       const data = blogs.map((blog) => {
         return {
-          ...blog,
-          comments: blogs.comments.length,
-          likes: blogs.likes.length,
+          ...blog._doc,
+          comments: blog._doc.comments.length,
+          likes: blog._doc.likes.length,
         };
       });
       res.status(200).json({
